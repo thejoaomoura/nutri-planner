@@ -14,11 +14,18 @@ const loadingPhrases = [
 ];
 
 export default function LoadingPage() {
+  const [mounted, setMounted] = useState(false);
   const [currentPhrase, setCurrentPhrase] = useState(0);
   const [progress, setProgress] = useState(0);
   const [fadeIn, setFadeIn] = useState(true);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
     // Handle phrase transitions with fade effect
     const phraseInterval = setInterval(() => {
       setFadeIn(false);
@@ -43,7 +50,18 @@ export default function LoadingPage() {
       clearInterval(phraseInterval);
       clearInterval(progressInterval);
     };
-  }, []);
+  }, [mounted]);
+
+  // Show a simple loading state before client-side hydration
+  if (!mounted) {
+    return (
+      <main className="min-h-screen gradient-bg flex flex-col items-center justify-center p-4">
+        <div className="flex justify-center">
+          <Loader2 className="w-12 h-12 text-white/90 animate-spin" />
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen gradient-bg flex flex-col items-center justify-center p-4">
