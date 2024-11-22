@@ -16,14 +16,20 @@ const FormContext = createContext<FormContextType | undefined>(undefined);
 
 const STEPS: FormStep[] = ['personal', 'activity', 'goals', 'lifestyle', 'dietary'];
 
+const initialData: Partial<UserData> = {
+  restricoesAlimentares: [],
+  alergias: [],
+  preferenciasAlimentares: [],
+};
+
 export function FormProvider({ children }: { children: React.ReactNode }) {
-  const [data, setData] = useState<Partial<UserData>>({});
+  const [data, setData] = useState<Partial<UserData>>(initialData);
   const [currentStep, setCurrentStep] = useState<FormStep>('personal');
 
   useEffect(() => {
     const savedData = loadFormData();
     if (savedData) {
-      setData(savedData);
+      setData({ ...initialData, ...savedData });
     }
   }, []);
 
