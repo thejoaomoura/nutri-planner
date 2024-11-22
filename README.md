@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![NutriPlanner Logo](public/logo.png)
+<img src="public/logo.png" alt="NutriPlanner Logo" width="232" height="232" />
 
 Uma aplicação web moderna para planejamento nutricional personalizado baseado em ciência e I.A.
 
