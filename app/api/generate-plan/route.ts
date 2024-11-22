@@ -3,7 +3,7 @@ import OpenAI from 'openai';
 import { buildSystemPrompt, buildUserPrompt } from '@/lib/prompt-builder';
 
 const openai = new OpenAI({
-  apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 export async function POST(request: Request) {
