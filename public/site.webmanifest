@@ -1,0 +1,14 @@
+{
+  "name": "NutriPlanner",
+  "short_name": "NutriPlanner",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "32x32",
+      "type": "image/svg+xml"
+    }
+  ],
+  "theme_color": "#4CAF50",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}
