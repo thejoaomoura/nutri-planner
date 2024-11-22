@@ -1,51 +1,54 @@
+'use client';
+
+import * as React from 'react';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import { useTheme } from 'next-themes';
-import { useEffect, useState } from 'react';
 import { Moon, Sun, Monitor } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
-const ThemeToggle = () => {
+export default function ThemeToggle() {
   const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
 
   return (
     <ToggleGroup.Root
+      className="inline-flex items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground"
       type="single"
       value={theme}
       onValueChange={(value) => {
         if (value) setTheme(value);
       }}
-      aria-label="Modo de tema"
-      className="Z6PRs inline-flex bg-gray-100 dark:bg-gray-800 rounded-lg p-1"
+      aria-label="Alternar tema"
     >
       <ToggleGroup.Item
         value="light"
-        aria-label="Modo claro"
-        className="flex items-center justify-center w-8 h-8 rounded transition-all data-[state=on]:bg-white data-[state=on]:text-black dark:data-[state=on]:bg-gray-700 dark:data-[state=on]:text-white"
+        aria-label="Tema claro"
+        className={cn(
+          'inline-flex items-center justify-center rounded-md p-2 hover:bg-background hover:text-foreground',
+          'data-[state=on]:bg-background data-[state=on]:text-foreground'
+        )}
       >
-        <Sun className="h-4 w-4" />
+        <Sun className="h-5 w-5" />
       </ToggleGroup.Item>
       <ToggleGroup.Item
         value="dark"
-        aria-label="Modo escuro"
-        className="flex items-center justify-center w-8 h-8 rounded transition-all data-[state=on]:bg-white data-[state=on]:text-black dark:data-[state=on]:bg-gray-700 dark:data-[state=on]:text-white"
+        aria-label="Tema escuro"
+        className={cn(
+          'inline-flex items-center justify-center rounded-md p-2 hover:bg-background hover:text-foreground',
+          'data-[state=on]:bg-background data-[state=on]:text-foreground'
+        )}
       >
-        <Moon className="h-4 w-4" />
+        <Moon className="h-5 w-5" />
       </ToggleGroup.Item>
       <ToggleGroup.Item
         value="system"
-        aria-label="Modo do sistema"
-        className="flex items-center justify-center w-8 h-8 rounded transition-all data-[state=on]:bg-white data-[state=on]:text-black dark:data-[state=on]:bg-gray-700 dark:data-[state=on]:text-white"
+        aria-label="Tema do sistema"
+        className={cn(
+          'inline-flex items-center justify-center rounded-md p-2 hover:bg-background hover:text-foreground',
+          'data-[state=on]:bg-background data-[state=on]:text-foreground'
+        )}
       >
-        <Monitor className="h-4 w-4" />
+        <Monitor className="h-5 w-5" />
       </ToggleGroup.Item>
     </ToggleGroup.Root>
   );
-};
-
-export default ThemeToggle;
+}
