@@ -23,11 +23,13 @@ import {
   Save,
   Trash2,
   ArrowLeft,
-  Utensils
+  Utensils,
+  Settings
 } from 'lucide-react';
 import Link from 'next/link';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import ThemeToggle from '@/components/ui/toggle-group';
 
 export default function ProfilePage() {
   const [userData, setUserData] = useState<UserData | null>(null);
@@ -91,6 +93,10 @@ export default function ProfilePage() {
   return (
     <main className="min-h-screen gradient-bg p-4 sm:p-8">
       <div className="max-w-4xl mx-auto space-y-6">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-2xl font-bold">Perfil</h1>
+          <ThemeToggle />
+        </div>
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <Link href="/">
