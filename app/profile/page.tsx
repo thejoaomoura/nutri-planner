@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { UserData } from '@/types/form';
+import { UserData, PartialUserData } from '@/types/form';
 import { loadFormData, saveFormData } from '@/lib/storage';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -32,7 +32,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import ThemeToggle from '@/components/ui/toggle-group';
 
 export default function ProfilePage() {
-  const [userData, setUserData] = useState<UserData | null>(null);
+  const [userData, setUserData] = useState<PartialUserData | null>(null);
   const [lastPlanId, setLastPlanId] = useState<string | null>(null);
   const { toast } = useToast();
 
