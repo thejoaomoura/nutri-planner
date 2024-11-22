@@ -24,4 +24,6 @@ export interface UserData {
   preferenciasAlimentares: string[];
 }
 
+export type PartialUserData = Partial<UserData>;
+
 export type FormStep = 'personal' | 'activity' | 'goals' | 'lifestyle' | 'dietary' | 'summary';
