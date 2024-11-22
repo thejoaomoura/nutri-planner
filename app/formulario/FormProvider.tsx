@@ -1,22 +1,13 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect } from 'react';
-import { UserData, FormStep } from '@/types/form';
+import { useState, useEffect } from 'react';
+import { PartialUserData, FormStep } from '@/types/form';
 import { loadFormData, saveFormData } from '@/lib/storage';
-
-interface FormContextType {
-  data: Partial<UserData>;
-  currentStep: FormStep;
-  updateData: (newData: Partial<UserData>) => void;
-  nextStep: () => void;
-  previousStep: () => void;
-}
-
-const FormContext = createContext<FormContextType | undefined>(undefined);
+import { FormContext } from './useFormContext';
 
 const STEPS: FormStep[] = ['personal', 'activity', 'goals', 'lifestyle', 'dietary'];
 
-const initialData: Partial<UserData> = {
+const initialData: PartialUserData = {
   restricoesAlimentares: [],
   alergias: [],
   preferenciasAlimentares: [],
@@ -24,7 +15,7 @@ const initialData: Partial<UserData> = {
 
 export function FormProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState<Partial<UserData>>(initialData);
+  const [data, setData] = useState<PartialUserData>(initialData);
   const [currentStep, setCurrentStep] = useState<FormStep>('personal');
 
   useEffect(() => {
@@ -35,7 +26,7 @@ export function FormProvider({ children }: { children: React.ReactNode }) {
     setIsLoading(false);
   }, []);
 
-  const updateData = (newData: Partial<UserData>) => {
+  const updateData = (newData: Partial<PartialUserData>) => {
     const updatedData = { ...data, ...newData };
     setData(updatedData);
     saveFormData(updatedData);
@@ -65,11 +56,3 @@ export function FormProvider({ children }: { children: React.ReactNode }) {
     </FormContext.Provider>
   );
 }
-
-export const useForm = () => {
-  const context = useContext(FormContext);
-  if (!context) {
-    throw new Error('useForm must be used within a FormProvider');
-  }
-  return context;
-};

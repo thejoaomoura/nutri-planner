@@ -5,21 +5,34 @@ import { ActivityLevelForm } from './steps/ActivityLevelForm';
 import { GoalsForm } from './steps/GoalsForm';
 import { LifestyleForm } from './steps/LifestyleForm';
 import { DietaryRestrictionsForm } from './steps/DietaryRestrictionsForm';
-import { useForm } from './FormProvider';
+import { SummaryForm } from './steps/SummaryForm';
+import { useForm } from './useFormContext';
 import { Progress } from '@/components/ui/progress';
+import { FormStep } from '@/types/form';
+import { FC } from 'react';
 
-const stepComponents = {
+type FormComponent = FC<{}>;
+
+const stepComponents: Record<FormStep, FormComponent> = {
   personal: PersonalDataForm,
   activity: ActivityLevelForm,
   goals: GoalsForm,
   lifestyle: LifestyleForm,
   dietary: DietaryRestrictionsForm,
+  summary: SummaryForm,
+};
+
+type StepsConfig = {
+  [K in FormStep]: {
+    title: string;
+    component: FormComponent;
+  };
 };
 
 export function FormSteps() {
   const { currentStep } = useForm();
 
-  const steps = {
+  const steps: StepsConfig = {
     personal: {
       title: 'Dados Pessoais',
       component: stepComponents.personal,
@@ -40,24 +53,27 @@ export function FormSteps() {
       title: 'Restrições Alimentares',
       component: stepComponents.dietary,
     },
+    summary: {
+      title: 'Resumo',
+      component: stepComponents.summary,
+    },
   };
 
-  const currentStepComponent = steps[currentStep as keyof typeof steps].component;
-  const CurrentComponent = currentStepComponent;
+  const StepComponent = steps[currentStep].component;
 
   const totalSteps = Object.keys(steps).length;
   const currentStepIndex = Object.keys(steps).indexOf(currentStep) + 1;
   const progress = (currentStepIndex / totalSteps) * 100;
 
   return (
-    <div className="w-full max-w-2xl mx-auto space-y-8 p-4">
+    <div className="space-y-8">
       <div className="space-y-2">
-        <Progress value={progress} className="w-full" />
+        <Progress value={progress} className="h-2" />
         <p className="text-sm text-muted-foreground text-center">
-          Passo {currentStepIndex} de {totalSteps}
+          Passo {currentStepIndex} de {totalSteps}: {steps[currentStep].title}
         </p>
       </div>
-      <CurrentComponent />
+      <StepComponent />
     </div>
   );
 }
