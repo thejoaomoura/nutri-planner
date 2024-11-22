@@ -59,14 +59,20 @@ npm install
 yarn install
 ```
 
-3. Inicie o servidor de desenvolvimento
+3. Crie um arquivo `.env.local` na raiz do projeto e adicione sua chave da API OpenAI:
+```bash
+OPENAI_API_KEY=sua_chave_api_aqui
+```
+> Você pode obter sua chave API em: https://platform.openai.com/api-keys
+
+4. Inicie o servidor de desenvolvimento
 ```bash
 npm run dev
 # ou
 yarn dev
 ```
 
-4. Acesse `http://localhost:3000` no seu navegador
+5. Acesse `http://localhost:3000` no seu navegador
 
 ## 📚 Scripts Disponíveis
 
