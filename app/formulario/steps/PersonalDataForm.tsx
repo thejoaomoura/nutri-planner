@@ -1,6 +1,6 @@
 'use client';
 
-import { useForm } from '../FormProvider';
+import { useForm } from '../useFormContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';

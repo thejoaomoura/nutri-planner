@@ -1,10 +1,11 @@
 'use client';
 
-import { useForm } from '../FormProvider';
+import { useForm } from '../useFormContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Sun, Moon, Wallet } from 'lucide-react';
+import { Switch } from '@/components/ui/switch';
+import { Clock, Wallet } from 'lucide-react';
 import FormLayout from './FormLayout';
 
 export function LifestyleForm() {
@@ -20,7 +21,7 @@ export function LifestyleForm() {
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="horaAcordar" className="flex items-center gap-2">
-            <Sun className="h-4 w-4" />
+            <Clock className="h-4 w-4" />
             Horário que costuma acordar
           </Label>
           <Input
@@ -34,7 +35,7 @@ export function LifestyleForm() {
 
         <div className="space-y-2">
           <Label htmlFor="horaDormir" className="flex items-center gap-2">
-            <Moon className="h-4 w-4" />
+            <Clock className="h-4 w-4" />
             Horário que costuma dormir
           </Label>
           <Input
