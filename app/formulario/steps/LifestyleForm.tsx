@@ -1,6 +1,6 @@
 'use client';
 
-import { useForm as useFormContext } from '../FormProvider';
+import { useForm } from '../FormProvider';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -8,7 +8,7 @@ import { Sun, Moon, Wallet } from 'lucide-react';
 import FormLayout from './FormLayout';
 
 export function LifestyleForm() {
-  const { data, updateData, nextStep, previousStep } = useFormContext();
+  const { data, updateData, nextStep, previousStep } = useForm();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
