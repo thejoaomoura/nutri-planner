@@ -1,10 +1,10 @@
 'use client';
 
-import { UserData } from '@/types/form';
+import { UserData, PartialUserData } from '@/types/form';
 
 const isClient = typeof window !== 'undefined';
 
-export const saveFormData = (data: Partial<UserData>) => {
+export const saveFormData = (data: PartialUserData) => {
   try {
     if (isClient) {
       localStorage.setItem('nutriplanner-data', JSON.stringify(data));
@@ -14,7 +14,7 @@ export const saveFormData = (data: Partial<UserData>) => {
   }
 };
 
-export const loadFormData = (): Partial<UserData> | null => {
+export const loadFormData = (): PartialUserData | null => {
   try {
     if (isClient) {
       const data = localStorage.getItem('nutriplanner-data');
