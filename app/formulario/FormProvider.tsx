@@ -23,6 +23,7 @@ const initialData: Partial<UserData> = {
 };
 
 export function FormProvider({ children }: { children: React.ReactNode }) {
+  const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<Partial<UserData>>(initialData);
   const [currentStep, setCurrentStep] = useState<FormStep>('personal');
 
@@ -31,6 +32,7 @@ export function FormProvider({ children }: { children: React.ReactNode }) {
     if (savedData) {
       setData({ ...initialData, ...savedData });
     }
+    setIsLoading(false);
   }, []);
 
   const updateData = (newData: Partial<UserData>) => {
@@ -52,6 +54,10 @@ export function FormProvider({ children }: { children: React.ReactNode }) {
       setCurrentStep(STEPS[currentIndex - 1]);
     }
   };
+
+  if (isLoading) {
+    return <div>Carregando...</div>;
+  }
 
   return (
     <FormContext.Provider value={{ data, currentStep, updateData, nextStep, previousStep }}>
