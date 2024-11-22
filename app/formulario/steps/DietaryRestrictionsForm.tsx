@@ -34,12 +34,16 @@ export function DietaryRestrictionsForm() {
         body: JSON.stringify(data),
       });
 
+      const result = await response.json();
+
       if (!response.ok) {
-        throw new Error('Falha ao gerar o plano alimentar');
+        throw new Error(result.error || 'Falha ao gerar o plano alimentar');
       }
 
-      const result = await response.json();
-      
+      if (!result || !result.plan) {
+        throw new Error('Resposta inválida do servidor');
+      }
+
       // Gerar um ID único para o plano
       const planId = Math.random().toString(36).substring(2);
       
