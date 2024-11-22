@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { User, RefreshCcw, Printer, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import ThemeToggle from '@/components/ui/toggle-group';
 
 export default function ResultadosPage() {
   const router = useRouter();
@@ -56,13 +57,14 @@ export default function ResultadosPage() {
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto py-8 px-4 max-w-4xl">
         {/* Botão de voltar */}
-        <div className="mb-8">
+        <div className="flex justify-between items-center mb-4">
           <Link href="/">
             <Button variant="ghost" className="hover:bg-gray-100 -ml-4">
               <ArrowLeft className="mr-2 h-5 w-5" />
               Voltar à Página Inicial
             </Button>
           </Link>
+          <ThemeToggle />
         </div>
 
         <div className="text-center mb-12">
