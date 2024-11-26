@@ -3,7 +3,7 @@ import { UserData } from '@/types/form';
 export function buildSystemPrompt(): string {
   return `Você é um assistente nutricionista especializado e experiente, focado em criar planos alimentares personalizados e individualizados.
 Seu objetivo é analisar os dados do usuário e gerar um plano alimentar detalhado e personalizado que:
-- Seja adequado aos objetivos do usuário
+- Seja adequado aos objetivos e metas do usuário
 - Respeite suas restrições alimentares e alergias
 - Considere suas preferências alimentares
 - Esteja dentro do orçamento especificado (quando aplicável)
@@ -28,6 +28,17 @@ export function buildUserPrompt(userData: UserData): string {
     restricoesAlimentares,
     alergias,
     preferenciasAlimentares,
+    deslocamentoPrincipal,
+    tempoDeslocamento,
+    descricaoRotina,
+    rotinaSonoConsistente,
+    qualidadeSono,
+    periodoTrabalhoEstudo,
+    localTrabalho,
+    nivelEstresse,
+    frequenciaLazer,
+    rotinaPermiteSaudavel,
+    desejasMudarRotina,
   } = userData;
 
   // Calcular IMC
@@ -54,7 +65,7 @@ export function buildUserPrompt(userData: UserData): string {
   const tdee = tmb * fatoresAtividade[nivelAtividade];
 
   return `
-Dados do Paciente:
+Dados do Usuário:
 - Nome: ${nome}
 - Idade: ${idade} anos
 - Gênero: ${genero}
@@ -67,9 +78,28 @@ Dados do Paciente:
 Nível de Atividade: ${nivelAtividade}
 Objetivo: ${objetivo}
 
-Rotina:
+Rotina Diária:
 - Horário de acordar: ${horaAcordar}
 - Horário de dormir: ${horaDormir}
+- Meio de deslocamento: ${deslocamentoPrincipal}
+- Tempo de deslocamento: ${tempoDeslocamento}
+- Descrição da rotina: ${descricaoRotina}
+
+Hábitos de Sono:
+- Consistência nos horários: ${rotinaSonoConsistente}
+- Qualidade do sono: ${qualidadeSono}
+
+Trabalho/Estudo:
+- Período diário: ${periodoTrabalhoEstudo}
+- Local: ${localTrabalho}
+
+Estresse e Bem-estar:
+- Nível de estresse: ${nivelEstresse}
+- Frequência de lazer: ${frequenciaLazer}
+
+Avaliação do Estilo de Vida:
+- Permite vida saudável: ${rotinaPermiteSaudavel}
+- Deseja mudar: ${desejasMudarRotina}
 
 ${restricaoOrcamento ? `Orçamento mensal: R$ ${orcamentoMensal}` : 'Sem restrição de orçamento'}
 
@@ -83,10 +113,11 @@ Preferências Alimentares:
 ${preferenciasAlimentares?.length ? preferenciasAlimentares.join(', ') : 'Nenhuma'}
 
 Por favor, crie um plano alimentar personalizado considerando todos estes fatores, incluindo:
-1. Distribuição de macronutrientes recomendada
-2. Plano de refeições diário com 4-6 refeições
-3. Lista de alimentos recomendados
-4. Dicas práticas para preparação
+1. Distribuição de macronutrientes recomendada e gramatura para cada refeição
+2. Plano de refeições diário com 4-6 refeições, adaptado aos horários e rotina do usuário
+3. Lista de alimentos recomendados para cada refeição
+4. Dicas práticas para preparação de refeições considerando a disponibilidade de tempo
 5. Alternativas para as refeições principais
-6. Recomendações específicas baseadas no objetivo`;
+6. Recomendações específicas baseadas no objetivo e estilo de vida
+7. Sugestões para melhorar a qualidade do sono e gerenciar o estresse através da alimentação`;
 }
