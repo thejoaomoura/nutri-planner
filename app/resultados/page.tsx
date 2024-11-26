@@ -5,9 +5,10 @@ import { Button } from '@/components/ui/button';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { User, RefreshCcw, Printer, ArrowLeft } from 'lucide-react';
+import { User, RefreshCcw, Printer, ArrowLeft, Save } from 'lucide-react';
 import Link from 'next/link';
 import ThemeToggle from '@/components/ui/toggle-group';
+import jsPDF from 'jspdf';
 
 export default function ResultadosPage() {
   const router = useRouter();
@@ -43,6 +44,72 @@ export default function ResultadosPage() {
       localStorage.removeItem(`plan_${planId}`);
     }
     router.push('/formulario');
+  };
+
+  const handleSavePDF = () => {
+    const doc = new jsPDF();
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+    const margin = 20;
+    const contentWidth = pageWidth - 2 * margin;
+    let currentY = margin;
+
+    // Título
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(20);
+    const titleText = "Seu Plano Alimentar Personalizado";
+    const titleWidth = doc.getTextWidth(titleText);
+    const titleX = (pageWidth - titleWidth) / 2;
+    doc.text(titleText, titleX, currentY);
+    currentY += 15;
+
+    // Preparar o texto removendo marcações Markdown
+    let cleanText = planoAlimentar.plan
+      .replace(/\*\*/g, '') // Remove **bold**
+      .replace(/\*/g, '')   // Remove *italic*
+      .replace(/#{1,6}\s/g, '') // Remove headers (#, ##, etc)
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Remove links [text](url)
+      .replace(/`([^`]+)`/g, '$1') // Remove code blocks
+      .replace(/^\s*[-*+]\s/gm, '• '); // Converte listas em bullets
+
+    // Configurar fonte para o conteúdo
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(12);
+    doc.setTextColor(0, 0, 0);
+
+    const textLines = doc.splitTextToSize(cleanText, contentWidth);
+
+    // Adicionar linhas ao PDF, criando novas páginas quando necessário
+    textLines.forEach((line: string) => {
+      if (currentY > pageHeight - 30) { 
+        doc.addPage();
+        currentY = margin;
+      }
+      doc.text(line, margin, currentY);
+      currentY += 7; // Espaçamento entre linhas
+    });
+
+    // Adicionar rodapé em todas as páginas
+    const pageCount = doc.internal.pages.length - 1;
+    for (let i = 1; i <= pageCount; i++) {
+      doc.setPage(i);
+      doc.setFontSize(10);
+      doc.setTextColor(128, 128, 128);
+      doc.text(
+        "Gerado por Nutri Planner - Consulte um nutricionista para valores mais precisos",
+        margin,
+        pageHeight - 10
+      );
+      // Adicionar número da página
+      doc.text(
+        `Página ${i} de ${pageCount}`,
+        pageWidth - margin - 20,
+        pageHeight - 10
+      );
+    }
+    
+    // Salvar o PDF
+    doc.save("plano-alimentar.pdf");
   };
 
   if (!planoAlimentar) {
@@ -110,6 +177,14 @@ export default function ResultadosPage() {
             >
               <Printer className="mr-2 h-5 w-5" />
               Imprimir Plano
+            </Button>
+            <Button
+              onClick={handleSavePDF}
+              variant="outline"
+              className="px-8 py-6 text-lg"
+            >
+              <Save className="mr-2 h-5 w-5" />
+              Salvar PDF
             </Button>
             <Button
               onClick={() => router.push('/profile')}
