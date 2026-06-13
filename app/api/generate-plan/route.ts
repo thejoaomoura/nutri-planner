@@ -4,14 +4,15 @@ import { buildSystemPrompt, buildUserPrompt } from '@/lib/prompt-builder';
 
 export async function POST(request: Request) {
   try {
-    const openai = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY,
+    const groq = new OpenAI({
+      apiKey: process.env.GROQ_API_KEY,
+      baseURL: 'https://api.groq.com/openai/v1',
     });
 
     const userData = await request.json();
 
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+    const completion = await groq.chat.completions.create({
+      model: "llama-3.1-8b-instant",
       messages: [
         { role: "system", content: buildSystemPrompt() },
         { role: "user", content: buildUserPrompt(userData) },
