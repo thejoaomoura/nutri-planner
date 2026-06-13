@@ -114,43 +114,42 @@ export default function ResultadosPage() {
 
   if (!planoAlimentar) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+      <div className="flex items-center justify-center min-h-screen page-bg">
+        <div className="animate-spin rounded-full h-10 w-10 border-2 border-primary border-t-transparent"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto py-8 px-4 max-w-4xl">
-        {/* Botão de voltar */}
-        <div className="flex justify-between items-center mb-4">
+    <div className="min-h-screen page-bg">
+      <div className="container mx-auto py-8 px-4 sm:px-6 max-w-4xl">
+        <div className="flex justify-between items-center mb-8">
           <Link href="/">
-            <Button variant="ghost" className="hover:bg-gray-100 -ml-4">
-              <ArrowLeft className="mr-2 h-5 w-5" />
-              Voltar à Página Inicial
+            <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground gap-1.5 -ml-2">
+              <ArrowLeft className="h-4 w-4" />
+              Voltar
             </Button>
           </Link>
           <ThemeToggle />
         </div>
 
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-primary mb-4">
-            Seu Plano Alimentar Personalizado
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-foreground mb-2">
+            Seu Plano Alimentar
           </h1>
-          <p className="text-muted-foreground text-lg">
-            Desenvolvido especialmente para suas necessidades e objetivos
+          <p className="text-muted-foreground">
+            Desenvolvido com base nas suas informações e objetivos
           </p>
         </div>
-        
-        <Card className="mb-8 shadow-lg">
-          <CardHeader>
-            <CardTitle className="text-2xl font-bold text-primary">
+
+        <Card className="mb-6 border border-border">
+          <CardHeader className="border-b border-border pb-4">
+            <CardTitle className="text-base font-semibold text-foreground">
               Informações Nutricionais
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="prose prose-purple max-w-none">
+          <CardContent className="pt-5">
+            <div className="prose prose-sm max-w-none dark:prose-invert">
               <ReactMarkdown>
                 {planoAlimentar.plan}
               </ReactMarkdown>
@@ -158,43 +157,29 @@ export default function ResultadosPage() {
           </CardContent>
         </Card>
 
-        <div className="flex flex-col items-center gap-6 mt-12">
-        <p className="text-muted-foreground text-center max-w-2xl">
-            Este plano foi gerado por I.A com base nas suas preferências. Para valores mais precisos e individualizados, consulte um nutricionista.
+        <div className="border border-border rounded-xl p-4 bg-muted/40 mb-6">
+          <p className="text-muted-foreground text-sm text-center">
+            Este plano foi gerado por IA com base nas suas preferências. Para valores mais precisos, consulte um nutricionista.
           </p>
-          <div className="flex gap-4">
-            <Button 
-              onClick={handleGerarNovamente}
-              className="bg-primary hover:bg-primary/90 px-8 py-6 text-lg"
-            >
-              <RefreshCcw className="mr-2 h-5 w-5" />
+        </div>
+
+        <div className="flex flex-wrap gap-3 justify-center">
+            <Button onClick={handleGerarNovamente} className="gap-2">
+              <RefreshCcw className="h-4 w-4" />
               Gerar Novo Plano
             </Button>
-            <Button 
-              onClick={() => window.print()}
-              variant="outline"
-              className="px-8 py-6 text-lg"
-            >
-              <Printer className="mr-2 h-5 w-5" />
-              Imprimir Plano
+            <Button onClick={() => window.print()} variant="outline" className="gap-2">
+              <Printer className="h-4 w-4" />
+              Imprimir
             </Button>
-            <Button
-              onClick={handleSavePDF}
-              variant="outline"
-              className="px-8 py-6 text-lg"
-            >
-              <Save className="mr-2 h-5 w-5" />
+            <Button onClick={handleSavePDF} variant="outline" className="gap-2">
+              <Save className="h-4 w-4" />
               Salvar PDF
             </Button>
-            <Button
-              onClick={() => router.push('/profile')}
-              variant="secondary"
-              className="px-8 py-6 text-lg"
-            >
-              <User className="mr-2 h-5 w-5" />
+            <Button onClick={() => router.push('/profile')} variant="secondary" className="gap-2">
+              <User className="h-4 w-4" />
               Meu Perfil
             </Button>
-          </div>
         </div>
       </div>
     </div>

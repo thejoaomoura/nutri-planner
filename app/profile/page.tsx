@@ -73,14 +73,14 @@ export default function ProfilePage() {
 
   if (!userData) {
     return (
-      <main className="min-h-screen gradient-bg p-4 sm:p-8">
+      <main className="min-h-screen page-bg p-4 sm:p-8">
         <div className="max-w-4xl mx-auto">
           <Alert>
             <AlertTriangle className="h-4 w-4" />
             <AlertTitle>Nenhum dado encontrado</AlertTitle>
             <AlertDescription>
               Você ainda não preencheu o formulário.{' '}
-              <Link href="/formulario" className="underline">
+              <Link href="/formulario" className="underline font-medium text-primary">
                 Clique aqui para começar
               </Link>
             </AlertDescription>
@@ -91,53 +91,48 @@ export default function ProfilePage() {
   }
 
   return (
-    <main className="min-h-screen gradient-bg p-4 sm:p-8">
+    <main className="min-h-screen page-bg p-4 sm:p-8">
       <div className="max-w-4xl mx-auto space-y-6">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold">Perfil</h1>
+        <div className="flex justify-between items-center mb-2">
+          <h1 className="text-xl font-semibold text-foreground">Perfil</h1>
           <ThemeToggle />
         </div>
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
             <Link href="/">
-              <Button variant="ghost" className="text-white">
-                <ArrowLeft className="mr-2 h-4 w-4" />
+              <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground gap-1.5">
+                <ArrowLeft className="h-4 w-4" />
                 Voltar
               </Button>
             </Link>
             {lastPlanId && (
               <Link href={`/resultados?id=${lastPlanId}`}>
-                <Button 
-                  variant="secondary" 
-                  className="bg-blue-600 hover:bg-blue-700 text-white transition-colors"
-                >
-                  <Utensils className="mr-2 h-4 w-4" />
+                <Button variant="secondary" size="sm" className="gap-1.5">
+                  <Utensils className="h-4 w-4" />
                   Minha Dieta
                 </Button>
               </Link>
             )}
           </div>
           <div className="flex items-center gap-2">
-            <Button 
-              onClick={handleSave} 
-              className="bg-emerald-600 hover:bg-emerald-700 text-white transition-colors"
-            >
-              <Save className="mr-2 h-4 w-4" />
-              Salvar Alterações
+            <Button onClick={handleSave} size="sm" className="gap-1.5">
+              <Save className="h-4 w-4" />
+              Salvar
             </Button>
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
+              size="sm"
               onClick={handleDelete}
-              className="border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700 transition-colors"
+              className="border-destructive/30 text-destructive hover:bg-destructive/5 gap-1.5"
             >
-              <Trash2 className="mr-2 h-4 w-4" />
+              <Trash2 className="h-4 w-4" />
               Excluir Dados
             </Button>
           </div>
         </div>
 
         <ScrollArea className="rounded-lg">
-          <Card className="bg-white/95 backdrop-blur-sm">
+          <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <User className="h-6 w-6" />
@@ -184,7 +179,7 @@ export default function ProfilePage() {
             </CardContent>
           </Card>
 
-          <Card className="mt-6 bg-white/95 backdrop-blur-sm">
+          <Card className="mt-4">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Activity className="h-6 w-6" />
@@ -229,7 +224,7 @@ export default function ProfilePage() {
             </CardContent>
           </Card>
 
-          <Card className="mt-6 bg-white/95 backdrop-blur-sm">
+          <Card className="mt-4">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Clock className="h-6 w-6" />
@@ -258,7 +253,7 @@ export default function ProfilePage() {
             </CardContent>
           </Card>
 
-          <Card className="mt-6 bg-white/95 backdrop-blur-sm">
+          <Card className="mt-4">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Apple className="h-6 w-6" />
@@ -299,7 +294,7 @@ export default function ProfilePage() {
             </CardContent>
           </Card>
 
-          <Card className="mt-6 mb-6 bg-white/95 backdrop-blur-sm">
+          <Card className="mt-4 mb-4">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Wallet className="h-6 w-6" />

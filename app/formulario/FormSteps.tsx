@@ -66,12 +66,17 @@ export function FormSteps() {
   const progress = (currentStepIndex / totalSteps) * 100;
 
   return (
-    <div className="space-y-8">
-      <div className="space-y-2">
-        <Progress value={progress} className="h-2" />
-        <p className="text-sm text-muted-foreground text-center">
-          Passo {currentStepIndex} de {totalSteps}: {steps[currentStep].title}
-        </p>
+    <div className="space-y-6">
+      <div>
+        <div className="flex items-center justify-between mb-2">
+          <p className="text-sm font-semibold text-foreground">
+            {steps[currentStep].title}
+          </p>
+          <p className="text-xs text-muted-foreground">
+            {currentStepIndex} / {totalSteps}
+          </p>
+        </div>
+        <Progress value={progress} className="h-1.5" />
       </div>
       <StepComponent />
     </div>
