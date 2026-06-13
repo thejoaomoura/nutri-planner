@@ -5,7 +5,7 @@ import { PartialUserData, FormStep } from '@/types/form';
 import { loadFormData, saveFormData } from '@/lib/storage';
 import { FormContext } from './useFormContext';
 
-const STEPS: FormStep[] = ['personal', 'activity', 'goals', 'lifestyle', 'dietary'];
+const STEPS: FormStep[] = ['personal', 'activity', 'goals', 'lifestyle', 'dietary', 'summary'];
 
 const initialData: PartialUserData = {
   restricoesAlimentares: [],

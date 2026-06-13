@@ -5,59 +5,18 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { Trash2, Ban, AlertTriangle, Heart } from 'lucide-react';
 import FormLayout from './FormLayout';
 
 export function DietaryRestrictionsForm() {
-  const router = useRouter();
-  const { data, updateData, previousStep } = useForm();
+  const { data, updateData, nextStep, previousStep } = useForm();
   const [newRestriction, setNewRestriction] = useState('');
   const [newAllergy, setNewAllergy] = useState('');
   const [newPreference, setNewPreference] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      // Redirecionar para a tela de loading
-      router.push('/loading');
-
-      // Iniciar a geração do plano em segundo plano
-      const response = await fetch('/api/generate-plan', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        throw new Error(result.error || 'Falha ao gerar o plano alimentar');
-      }
-
-      if (!result || !result.plan) {
-        throw new Error('Resposta inválida do servidor');
-      }
-
-      // Gerar um ID único para o plano
-      const planId = Math.random().toString(36).substring(2);
-      
-      // Salvar o plano no localStorage
-      localStorage.setItem(`plan_${planId}`, JSON.stringify(result));
-
-      // Redirecionar para a página de resultados
-      router.push(`/resultados?id=${planId}`);
-    } catch (error) {
-      console.error('Erro:', error);
-      router.push('/formulario?error=true');
-    } finally {
-      setIsSubmitting(false);
-    }
+    nextStep();
   };
 
   const addRestriction = () => {
@@ -211,8 +170,8 @@ export function DietaryRestrictionsForm() {
           <Button type="button" variant="outline" className="w-full" onClick={previousStep}>
             Anterior
           </Button>
-          <Button type="submit" className="w-full" disabled={isSubmitting}>
-            {isSubmitting ? 'Gerando plano...' : 'Finalizar'}
+          <Button type="submit" className="w-full">
+            Continuar
           </Button>
         </div>
       </form>
