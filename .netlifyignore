@@ -1,0 +1,8 @@
+.next
+node_modules
+.netlify
+*.log
+.env
+.env.local
+.env.development
+.env.production
