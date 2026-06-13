@@ -2,12 +2,12 @@ import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import { buildSystemPrompt, buildUserPrompt } from '@/lib/prompt-builder';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
 export async function POST(request: Request) {
   try {
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
+
     const userData = await request.json();
 
     const completion = await openai.chat.completions.create({

@@ -56,8 +56,8 @@ export function SummaryForm() {
 
             <div>
               <Label className="text-muted-foreground">Restrições Alimentares</Label>
-              {data.restricoesAlimentares?.length > 0 ? (
-                <p>{data.restricoesAlimentares.join(', ')}</p>
+              {(data.restricoesAlimentares?.length ?? 0) > 0 ? (
+                <p>{data.restricoesAlimentares!.join(', ')}</p>
               ) : (
                 <p>Nenhuma restrição alimentar</p>
               )}
@@ -65,8 +65,8 @@ export function SummaryForm() {
 
             <div>
               <Label className="text-muted-foreground">Alergias</Label>
-              {data.alergias?.length > 0 ? (
-                <p>{data.alergias.join(', ')}</p>
+              {(data.alergias?.length ?? 0) > 0 ? (
+                <p>{data.alergias!.join(', ')}</p>
               ) : (
                 <p>Nenhuma alergia</p>
               )}
@@ -74,8 +74,8 @@ export function SummaryForm() {
 
             <div>
               <Label className="text-muted-foreground">Preferências Alimentares</Label>
-              {data.preferenciasAlimentares?.length > 0 ? (
-                <p>{data.preferenciasAlimentares.join(', ')}</p>
+              {(data.preferenciasAlimentares?.length ?? 0) > 0 ? (
+                <p>{data.preferenciasAlimentares!.join(', ')}</p>
               ) : (
                 <p>Nenhuma preferência alimentar específica</p>
               )}
