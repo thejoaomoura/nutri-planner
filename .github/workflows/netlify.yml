@@ -21,6 +21,9 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Install dependencies
+        run: npm install
+
       - name: Set GROQ_API_KEY in Netlify
         run: npx --yes netlify-cli env:set GROQ_API_KEY "$GROQ_API_KEY"
         env:
